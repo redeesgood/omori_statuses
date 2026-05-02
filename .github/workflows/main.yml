@@ -28,7 +28,7 @@ jobs:
     - name: Установка библиотек
       run: |
         python -m pip install --upgrade pip
-        pip install pytest playwright allure-pytest
+        pip install pytest pytest-playwright allure-pytest
 
     # Шаг 4: Самый важный для Playwright! Качаем сам браузер Chromium
     - name: Установка браузеров
