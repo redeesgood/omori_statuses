@@ -1,6 +1,7 @@
 import json
 import os
 import pytest
+import allure
 from playwright.sync_api import Page, Route, expect
 
 @pytest.mark.parametrize("state, heart_rate, css_class", [
@@ -30,6 +31,12 @@ def test_psycho_status(page: Page, dashboard_page, state, heart_rate, css_class)
     
     expect(dashboard_page.status_box).to_have_text(expected_text)
     expect(dashboard_page.status_box).to_have_class(f"character-box {css_class}")
+    
+    allure.attach(
+        page.screenshot(),
+        name = f"Финальный результат_{state}",
+        attachment_type=allure.attachment_type.PNG
+    )
     
 def test_documents_workflow(page: Page, dashboard_page):
     test_file = "secret_plan.txt"
