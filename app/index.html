@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Секретная Панель Агента</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; padding: 20px; }
+        .dashboard { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); max-width: 600px; }
+        .character-box { padding: 15px; border: 2px solid #ccc; border-radius: 8px; margin-top: 10px; transition: 0.3s; }
+        .calm { border-color: green; background-color: #e8f5e9; }
+        .stress { border-color: orange; background-color: #fff3e0; }
+        .panic { border-color: red; background-color: #ffebee; color: red; font-weight: bold; }
+        .file-section { margin-top: 20px; padding-top: 20px; border-top: 2px dashed #ccc; }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <h1>Панель Управления Агентом</h1>
+        
+        <h3>Статус миссии:</h3>
+        <button id="check-status-btn" onclick="checkStatus()">Запросить статус с сервера</button>
+        <div id="character-status" class="character-box">Ожидание данных...</div>
+
+        <div class="file-section">
+            <h3>Документация:</h3>
+            <p>1. Загрузить план миссии:</p>
+            <input type="file" id="mission-upload">
+            <button id="upload-btn" onclick="document.getElementById('upload-message').innerText = 'Файл успешно загружен в базу!'">Отправить</button>
+            <p id="upload-message" style="color: blue;"></p>
+
+            <p>2. Скачать отчет:</p>
+            <a href="data:text/plain;charset=utf-8,Secret%20Agent%20Data" download="top_secret_report.txt" id="download-report">📥 Скачать секретный отчет</a>
+        </div>
+        
+        <img src="https://via.placeholder.com/600x150?text=Тяжелый+Рекламный+Баннер" alt="Баннер" style="margin-top: 20px;">
+    </div>
+
+    <script>
+        function checkStatus() {
+            // Фронтенд обращается к "несуществующему" серверу
+            fetch('https://api.secret-agency.com/status')
+                .then(response => response.json())
+                .then(data => {
+                    const box = document.getElementById('character-status');
+                    box.innerText = `Состояние: ${data.state} | Пульс: ${data.heart_rate}`;
+                    box.className = `character-box ${data.css_class}`;
+                })
+                .catch(error => {
+                    const box = document.getElementById('character-status');
+                    box.innerText = 'СВЯЗЬ С СЕРВЕРОМ ПОТЕРЯНА!';
+                    box.className = 'character-box panic';
+                });
+        }
+    </script>
+</body>
+</html>
