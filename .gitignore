@@ -1,0 +1,21 @@
+# 1. Виртуальное окружение Python (самая тяжелая папка, её пушить нельзя!)
+venv/
+.venv/
+env/
+
+# 2. Кэш и временные файлы Python / Pytest
+__pycache__/
+.pytest_cache/
+*.pyc
+
+# 3. Отчеты Allure (мы не храним "сырые" результаты на GitHub)
+allure-results/
+allure-report/
+
+# 4. Папки для скачанных/загруженных файлов из наших тестов
+downloads/
+test_document.txt
+
+# 5. Системный мусор (на случай, если кто-то откроет проект на Mac)
+.DS_Store
+
